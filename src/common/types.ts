@@ -78,6 +78,7 @@ export const constantActionTypes = [
   "titlebarHeight",
   "configSnapshots",
   "transparency",
+  "contentPadding",
   "actionButtons",
   "customTranslators",
   "translatorProviders",

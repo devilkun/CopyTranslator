@@ -1,5 +1,6 @@
 <template>
   <div
+    :style="focusContainerStyle"
     @wheel="wheelHandler($event, 'result')"
     @keydown.ctrl.187="keyboardFontHandler($event, 'result')"
     @keydown.ctrl.189="keyboardFontHandler($event, 'result')"
@@ -12,12 +13,13 @@
       @keyup.ctrl.80.capture="command"
       v-on:drop="dragTranslate"
     >
-      <div
-        v-if="(mode === 'normal'|| mode==='none')"
-        style="height: 100%;"
-        v-bind:style="focusStyle"
-        @contextmenu="openMenu('focusContext')"
-      >
+        <div
+          v-if="(mode === 'normal'|| mode==='none')"
+          class="focusPadding"
+          style="height: 100%;"
+          v-bind:style="focusStyle"
+          @contextmenu="openMenu('focusContext')"
+        >
         <div v-if="(config.focusSource && mode=='normal')">
           <div>原文：</div>
           <div class="focusText" id="focusSource" contenteditable="true">
@@ -30,20 +32,20 @@
         </div>
         <textarea
           v-else
-          class="focusText max"
+          class="focusText max focusPadding"
           v-model="sharedResult.translation"
           v-bind:style="focusStyle"
         ></textarea>
       </div>
       <DiffTextArea
         v-else-if="mode == 'diff'"
-        class="focusText max"
+        class="focusText max focusPadding"
         id="diffText"
       ></DiffTextArea>
       <DictResultPanel
         v-else-if="mode === 'dict'"
         id="dictResultPanel"
-        class="max"
+        class="max focusPadding"
       ></DictResultPanel>
     </div>
     <div style="font-size: 15px; position: absolute; right: 0px; bottom: 5px;">
@@ -104,6 +106,12 @@ export default class FocusMode extends Mixins(BaseView) {
     };
   }
 
+  get focusContainerStyle() {
+    return {
+      "--content-padding": `${this.contentPadding}px`,
+    };
+  }
+
   getTextById(id: string) {
     const e = document.getElementById(id) as HTMLElement;
     const text = e.innerText;
@@ -145,5 +153,9 @@ export default class FocusMode extends Mixins(BaseView) {
 .max {
   height: 100%;
   width: 100%;
+}
+.focusPadding {
+  padding: var(--content-padding);
+  box-sizing: border-box;
 }
 </style>

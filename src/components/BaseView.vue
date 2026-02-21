@@ -157,6 +157,10 @@ export default class BaseView extends Base {
     };
   }
 
+  get contentPadding() {
+    return this.config.contentPadding ?? 12;
+  }
+
   get mode() {
     if (this.multiSource) {
       return "diff";

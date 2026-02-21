@@ -363,5 +363,7 @@
     "<tooltip>volc": "Volcengine Translate",
     "<tooltip>tencentsmart": "Tencent Interactive Translate (Transmart)",
     "stepfunShortSlogan": "Flagship model free trial",
-    "bing": "Bing Dictionary"
+    "bing": "Bing Dictionary",
+    "contentPadding": "Content Padding",
+    "<tooltip>contentPadding": "Set padding for source/result areas"
 }

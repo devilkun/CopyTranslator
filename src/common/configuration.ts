@@ -237,6 +237,10 @@ function initConfig(
     "transparency",
     new TypeRule<number>(0.0, (x) => x <= 1.0 && x >= 0.0)
   );
+  config.setRule(
+    "contentPadding",
+    new TypeRule<number>(6, (x) => x >= 0 && x <= 40)
+  );
 
   config.setRule(
     "layoutType",

@@ -2,22 +2,26 @@ import { env } from "../common/env";
 import fs from "fs";
 
 const defaultStyles = `
-.application{ /*在这里设置整个应用的字体*/
+/* 自定义样式会在应用窗口加载后注入 */
+/* 全局字体可作用于 Vuetify 根节点 */
+.window-container .v-application {
     font-family: "微软雅黑","PingHei";
 }
 
+/* 专注模式文本区域 */
 .focusText {
-    /*modify the style of the focus result textarea*/
-    /*font-family: Monaco;*/ /*设置专注模式的字体为 Monaco*/
+    /* 例如：font-family: Monaco; */
 }
 
-.contrastText {
-    /*modify the style of the contrast src and result textarea*/
-
+/* 对照模式原文/译文区域（横向/纵向） */
+.hArea,
+.vArea {
+    /* 例如：line-height: 1.6; */
 }
 
-.contrast {
-    /*modify the style of the contrast mode panel*/
+/* 词典面板 */
+.dict {
+    /* 例如：font-size: 14px; */
 }
 `;
 

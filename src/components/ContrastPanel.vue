@@ -54,6 +54,7 @@
         ></CoTextArea>
         <DictResultPanel
           v-else-if="config['contrastDict'] && dictResult.valid"
+          class="hArea"
         ></DictResultPanel>
       </div>
     </div>
@@ -102,6 +103,7 @@
         ></CoTextArea>
         <DictResultPanel
           v-else-if="config['contrastDict'] && dictResult.valid"
+          class="vArea"
         ></DictResultPanel>
       </div>
     </div>
@@ -330,6 +332,7 @@ export default class ContrastPanel extends Mixins(BaseView) {
       height: `calc(100vh - ${this.titlebarHeight})`,
       width: "100%",
       padding: "0px",
+      "--content-padding": `${this.contentPadding}px`,
     };
   }
 }
@@ -339,14 +342,16 @@ export default class ContrastPanel extends Mixins(BaseView) {
   height: 100%;
   width: 100%;
   resize: none;
-  padding: 0px;
+  padding: var(--content-padding);
   margin: 0px;
+  box-sizing: border-box;
 }
 .vArea {
   width: 100%;
   resize: none;
-  padding: 0px;
+  padding: var(--content-padding);
   margin: 0px;
+  box-sizing: border-box;
 }
 .maxNoPad {
   height: 100%;

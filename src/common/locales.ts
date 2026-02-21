@@ -83,6 +83,7 @@ export const zh_cn = new Map<LocaleKey, string>([
   ["pasteResult", "粘贴译文"],
   ["layoutType", "布局"],
   ["autoCheckUpdate", "自动检查更新"],
+  ["contentPadding", "内容页边距"],
   ["showConfigFolder", "打开配置文件夹"],
   ["editConfigFile", "编辑配置文件"],
   ["colorMode", "配色模式"],
@@ -206,6 +207,7 @@ export const zh_cn = new Map<LocaleKey, string>([
   ["<tooltip>fallbackTranslator", "后备翻译引擎，当前引擎不支持此语言时启用"],
   ["<tooltip>colorMode", "明亮或者是暗黑模式，自动则跟随系统"],
   ["<tooltip>localeSetting", "界面显示的语言，默认是自动检测系统语言"],
+  ["<tooltip>contentPadding", "设置原文/译文区域的内边距"],
   [
     "<tooltip>translator-enabled",
     "所有启用的的引擎，可以关闭某些不常用引擎以节省资源",
@@ -484,6 +486,7 @@ export const en = new Map<LocaleKey, string>([
   ["closeAsQuit", "Close As Quit"],
   ["layoutType", "Layout"],
   ["autoCheckUpdate", "Auto Check Update"],
+  ["contentPadding", "Content Padding"],
   ["showConfigFolder", "Show Config Folder"],
   ["editConfigFile", "Edit Config File"],
   ["colorMode", "Color Mode"],
@@ -632,6 +635,7 @@ export const en = new Map<LocaleKey, string>([
     "<tooltip>localeSetting",
     "The language displayed on the interface, the default is the automatic detection system language",
   ],
+  ["<tooltip>contentPadding", "Set padding for source/result areas"],
   [
     "<tooltip>translator-enabled",
     "All enabled engines, you can turn off some infrequently used engines to save resources",

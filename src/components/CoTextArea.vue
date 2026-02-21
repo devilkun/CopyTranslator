@@ -1,5 +1,9 @@
 <template>
-  <div contenteditable="true" @contextmenu="openMenu('contrastContext')">
+  <div
+    class="co-textarea"
+    contenteditable="true"
+    @contextmenu="openMenu('contrastContext')"
+  >
     <div style="height: 100%;">
       <div v-if="chineseStyle">
         <span
@@ -80,6 +84,11 @@ export default class CoTextArea extends Mixins(Vue, AppProps, BaseView) {
 </script>
 
 <style scoped>
+.co-textarea {
+  box-sizing: border-box;
+  height: 100%;
+  position: relative;
+}
 /* span:hover {
   background: #fee972;
 } */
