@@ -333,6 +333,7 @@ export default class ContrastPanel extends Mixins(BaseView) {
       width: "100%",
       padding: "0px",
       "--content-padding": `${this.contentPadding}px`,
+      "--content-line-height": this.contentLineHeight.toString(),
     };
   }
 }
@@ -343,6 +344,7 @@ export default class ContrastPanel extends Mixins(BaseView) {
   width: 100%;
   resize: none;
   padding: var(--content-padding);
+  line-height: var(--content-line-height);
   margin: 0px;
   box-sizing: border-box;
 }
@@ -350,6 +352,7 @@ export default class ContrastPanel extends Mixins(BaseView) {
   width: 100%;
   resize: none;
   padding: var(--content-padding);
+  line-height: var(--content-line-height);
   margin: 0px;
   box-sizing: border-box;
 }

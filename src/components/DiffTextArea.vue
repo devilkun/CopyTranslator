@@ -169,8 +169,9 @@ export default class DiffTextArea extends Mixins(BaseView) {
   min-width: 0px !important;
 }
 .engineSpan {
-  color: red;
-  font-size: 15px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
   text-transform: capitalize;
   padding-left: 2px;
   padding-right: 2px;

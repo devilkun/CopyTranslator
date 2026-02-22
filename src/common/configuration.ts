@@ -241,6 +241,10 @@ function initConfig(
     "contentPadding",
     new TypeRule<number>(6, (x) => x >= 0 && x <= 40)
   );
+  config.setRule(
+    "contentLineHeight",
+    new TypeRule<number>(1.4, (x) => x >= 1.0 && x <= 3.0)
+  );
 
   config.setRule(
     "layoutType",

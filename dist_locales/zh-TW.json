@@ -365,5 +365,7 @@
     "stepfunShortSlogan": "Flagship model free trial",
     "bing": "Bing Dictionary",
     "contentPadding": "Content Padding",
-    "<tooltip>contentPadding": "Set padding for source/result areas"
+    "<tooltip>contentPadding": "Set padding for source/result areas",
+    "contentLineHeight": "Content Line Height",
+    "<tooltip>contentLineHeight": "Set line height for source/result areas"
 }

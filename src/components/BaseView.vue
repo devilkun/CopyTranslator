@@ -161,6 +161,10 @@ export default class BaseView extends Base {
     return this.config.contentPadding ?? 12;
   }
 
+  get contentLineHeight() {
+    return this.config.contentLineHeight ?? 1.6;
+  }
+
   get mode() {
     if (this.multiSource) {
       return "diff";

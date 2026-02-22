@@ -79,6 +79,7 @@ export const constantActionTypes = [
   "configSnapshots",
   "transparency",
   "contentPadding",
+  "contentLineHeight",
   "actionButtons",
   "customTranslators",
   "translatorProviders",

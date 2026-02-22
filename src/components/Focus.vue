@@ -109,6 +109,7 @@ export default class FocusMode extends Mixins(BaseView) {
   get focusContainerStyle() {
     return {
       "--content-padding": `${this.contentPadding}px`,
+      "--content-line-height": this.contentLineHeight.toString(),
     };
   }
 
@@ -149,6 +150,7 @@ export default class FocusMode extends Mixins(BaseView) {
 <style scoped>
 .focusText {
   resize: none;
+  line-height: var(--content-line-height);
 }
 .max {
   height: 100%;

@@ -312,6 +312,10 @@ class ActionManager {
     for (let i = 0; i <= 40; i += 2) {
       paddings.push(i);
     }
+    const lineHeights = [];
+    for (let i = 10; i <= 30; i++) {
+      lineHeights.push(Number((i / 10).toFixed(1)));
+    }
 
     const getTranslatorTypes = (id: Identifier) => {
       return () => {
@@ -395,6 +399,7 @@ class ActionManager {
     );
     this.append(listAction("titlebarHeight", heights, "appearance"));
     this.append(listAction("contentPadding", paddings, "appearance"));
+    this.append(listAction("contentLineHeight", lineHeights, "appearance"));
     this.append(switchAction("penerate", "appearance"));
     this.append(constantAction("contentFontFamily", "appearance"));
     this.append(constantAction("interfaceFontFamily", "appearance"));
