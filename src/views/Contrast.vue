@@ -115,11 +115,23 @@
         :style="drawerStyle"
         class="rounded-left-drawer"
       >
-        <Action
-          v-for="actionId in actionKeys"
-          :identifier="actionId"
-          :key="actionId"
-        ></Action>
+        <div class="drawer-groups">
+          <div
+            v-for="group in drawerGroups"
+            :key="group.key"
+            class="drawer-group"
+          >
+            <div v-if="group.title" class="drawer-group-title">
+              {{ group.title }}
+            </div>
+            <Action
+              v-for="actionId in group.items"
+              :identifier="actionId"
+              :key="actionId"
+              :class="drawerActionClass(actionId)"
+            ></Action>
+          </div>
+        </div>
       </v-navigation-drawer>
 
       <ContrastPanel
@@ -176,6 +188,30 @@ export default class Contrast extends Mixins(BaseView, WindowController) {
   actionKeys: Identifier[] = this.$controller.action.getKeys(
     "contrastPanel"
   ) as Identifier[];
+  drawerActionClass(actionId: Identifier) {
+    const action = this.$controller.action.getAction(actionId);
+    return action.layout?.stack ? "drawer-action-language" : "";
+  }
+  get drawerGroups() {
+    const actions = this.actionKeys.map((id) =>
+      this.$controller.action.getAction(id)
+    );
+    const groups: Array<{ key: string; title: string; items: Identifier[] }> =
+      [];
+    const groupMap = new Map<string, { key: string; title: string; items: Identifier[] }>();
+    actions.forEach((action) => {
+      const title = action.layout?.group || "";
+      const key = title || "group";
+      if (!groupMap.has(key)) {
+        const group = { key, title, items: [action.id] };
+        groupMap.set(key, group);
+        groups.push(group);
+      } else {
+        groupMap.get(key)?.items.push(action.id);
+      }
+    });
+    return groups;
+  }
 
   dialog: boolean = false;
   marginBottom: number = 5;
@@ -391,6 +427,45 @@ export default class Contrast extends Mixins(BaseView, WindowController) {
 
 .rounded-panel.active {
   border-radius: 0 0 var(--border-radius) 0 !important;
+}
+
+.drawer-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+}
+.drawer-group {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.drawer-group-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-align: left;
+}
+.drawer-group .action-label {
+  white-space: nowrap;
+}
+.drawer-group .action-control {
+  min-width: 96px;
+  max-width: 120px;
+}
+.drawer-action-language .action-row {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+.drawer-action-language .action-label {
+  white-space: normal;
+}
+.drawer-action-language .action-control {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
 }
 
 .active {

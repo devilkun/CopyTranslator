@@ -420,6 +420,11 @@ export type ActionType =
   | "param_normal"; //带参数的normal action
 
 export type SubMenuGenerator = (id: string) => SubActionView[];
+export type ActionLayout = {
+  group?: string;
+  span?: number;
+  stack?: boolean;
+};
 interface AbstractAction {
   actionType?: ActionType | MenuItemType;
   id: string;
@@ -428,6 +433,7 @@ interface AbstractAction {
   type?: MenuItemType;
   role?: Role;
   label?: string;
+  layout?: ActionLayout;
 }
 
 export interface SubActionView extends AbstractAction {

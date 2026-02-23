@@ -24,14 +24,14 @@
         {{ trans["openReference"] || "配置指南" }}
       </a>
     </v-alert>
-    <div v-for="(_, key) in keyConfigLocal" :key="key">
+    <div v-for="(_, key) in keyConfigLocal" :key="key" class="keyconfig-item">
       <v-checkbox
         v-if="getUiType(key) === 'checkbox'"
         v-model="keyConfigLocal[key]"
         :label="getLabel(key)"
         dense
         hide-details
-        class="mt-4"
+        class="keyconfig-field"
       ></v-checkbox>
 
       <v-select
@@ -40,8 +40,9 @@
         :items="getSelectOptions(key)"
         :label="getLabel(key)"
         dense
+        outlined
         hide-details
-        class="mt-6"
+        class="keyconfig-field"
       ></v-select>
 
       <v-text-field
@@ -50,8 +51,9 @@
         type="number"
         :label="getLabel(key)"
         dense
+        outlined
         hide-details
-        class="mt-6"
+        class="keyconfig-field"
       ></v-text-field>
 
       <v-text-field
@@ -60,8 +62,9 @@
         :type="getInputType(key)"
         :label="getLabel(key)"
         dense
+        outlined
         hide-details
-        class="mt-6"
+        class="keyconfig-field"
       ></v-text-field>
     </div>
     <v-btn
@@ -261,4 +264,11 @@ class KeyConfig extends Base {
 export default KeyConfig;
 </script>
 
-<style scoped></style>
+<style scoped>
+.keyconfig-item {
+  margin-top: 10px;
+}
+.keyconfig-field {
+  margin-top: 0;
+}
+</style>

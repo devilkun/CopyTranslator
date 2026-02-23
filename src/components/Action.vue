@@ -1,20 +1,22 @@
 <template>
-  <div>
+  <div :class="['action-item', actionLayoutClass]">
     <v-tooltip v-if="action" bottom open-delay="100" :disabled="!tooltip">
       <template v-slot:activator="{ on, attrs }">
         <div class="actionStyle" v-bind="attrs" v-on="on">
-          <v-switch
-            v-if="action.actionType === 'checkbox'"
-            v-model="value"
-            class="myswitch"
-            :label="trans[action.id]"
-          ></v-switch>
+          <div v-if="action.actionType === 'checkbox'" class="action-row">
+            <span class="action-label">{{ trans[action.id] }}</span>
+            <v-switch
+              v-model="value"
+              class="action-switch"
+              hide-details
+            ></v-switch>
+          </div>
           <v-dialog
             v-else-if="action.id === 'newConfigSnapshot'"
             v-model="dialog"
           >
             <template v-slot:activator="{ on, attrs }">
-              <SimpleButton v-bind="attrs" v-on="on">
+              <SimpleButton v-bind="attrs" v-on="on" class="actionButton">
                 {{ trans[identifier] }}
               </SimpleButton>
             </template>
@@ -32,13 +34,14 @@
                   text = '';
                 "
                 :disabled="invalidSnapshotName"
+                class="actionButton"
                 >{{ trans[identifier] }}
               </SimpleButton>
             </v-card>
           </v-dialog>
           <v-menu offset-y v-else-if="action.actionType === 'param_normal'">
             <template v-slot:activator="{ on, attrs }">
-              <SimpleButton v-bind="attrs" v-on="on">
+              <SimpleButton v-bind="attrs" v-on="on" class="actionButton">
                 {{ trans[action.id] }}
               </SimpleButton>
             </template>
@@ -54,8 +57,14 @@
           </v-menu>
           <v-dialog v-else-if="action.actionType == 'color_picker'">
             <template v-slot:activator="{ on, attrs }">
-              <SimpleButton v-bind="attrs" v-on="on">
-                {{ trans[action.id] }}
+              <SimpleButton v-bind="attrs" v-on="on" class="actionButton">
+                <span class="action-button-content">
+                  <span>{{ trans[action.id] }}</span>
+                  <span
+                    class="action-color-preview"
+                    :style="{ background: color }"
+                  ></span>
+                </span>
               </SimpleButton>
             </template>
             <v-color-picker
@@ -77,30 +86,30 @@
             v-else-if="action.actionType === 'multi_select'"
             :identifier="action.id"
           ></MultiSelect>
-          <div v-else-if="action.actionType === 'constant'">
-            <p class="pStyle">{{ trans[identifier] }}</p>
+          <div v-else-if="action.actionType === 'constant'" class="action-row">
+            <span class="action-label">{{ trans[identifier] }}</span>
             <v-text-field
-              style="marigin-top: 0px; padding-top: 0px;"
               v-model="value"
-              class="mytext"
+              class="action-control"
+              dense
+              hide-details
             ></v-text-field>
           </div>
-          <div v-else-if="action.actionType === 'submenu'">
-            <p class="pStyle">
-              {{ trans[identifier] }}
-            </p>
+          <div v-else-if="action.actionType === 'submenu'" class="action-row">
+            <span class="action-label">{{ trans[identifier] }}</span>
             <v-select
               v-model="command"
               :items="action.submenu"
               item-text="label"
               item-value="id"
-              style="padding: 2px; padding-top: 0px;"
-              class="myswitch"
+              class="action-control"
+              dense
+              hide-details
             >
             </v-select>
           </div>
           <div v-else-if="action.actionType === 'normal'">
-            <SimpleButton @click="callback(action.id)">
+            <SimpleButton @click="callback(action.id)" class="actionButton">
               {{ trans[action.id] }}
             </SimpleButton>
           </div>
@@ -195,10 +204,69 @@ export default class Action extends Base {
       bus.gon(this.identifier, this.sync);
     }
   }
+
+  get actionLayoutClass() {
+    if (!this.action) {
+      return "";
+    }
+    if (["prompt", "multi_select"].includes(this.action.actionType)) {
+      return "action-span-full";
+    }
+    if (this.action.layout?.span && this.action.layout.span >= 1) {
+      return "action-span-full";
+    }
+    return "";
+  }
 }
 </script>
 
 <style scoped>
+.action-item {
+  width: 100%;
+}
+.action-span-full {
+  width: 100%;
+}
+.actionStyle {
+  margin-top: 0px;
+  margin-left: 2px;
+  margin-right: 2px;
+  text-align: left;
+}
+.action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 6px;
+}
+.action-label {
+  flex: 1 1 auto;
+  text-align: left;
+}
+.action-control {
+  flex: 0 0 auto;
+  min-width: 160px;
+  max-width: 260px;
+}
+.action-switch {
+  margin: 0;
+}
+.actionButton >>> .defaultBtn {
+  width: 100%;
+  min-width: 0;
+}
+.action-button-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.action-color-preview {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
 .myswitch {
   margin-top: 1px;
   margin-left: 5px;
@@ -214,20 +282,10 @@ export default class Action extends Base {
   margin-bottom: 0px;
   min-height: 20px;
 }
-.actionStyle {
-  margin-top: 0px;
-  margin-left: 2px;
-  margin-right: 2px;
-  text-align: center;
-}
 .pStyle {
   margin-bottom: 4px;
   text-align: left;
 }
-
-/* .mytext >>> .v-messages {
-  min-height: 0px;
-} */
 .mytext >>> .v-input__slot {
   margin-bottom: 0px !important;
 }

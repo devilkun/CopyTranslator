@@ -11,6 +11,7 @@ import {
   SubActionView,
   decompose,
   ActionInitOpt,
+  ActionLayout,
   colorModes,
   structActionTypes,
   translatorTypes,
@@ -531,6 +532,77 @@ class ActionManager {
     this.append(normalAction("restoreDefault", "other"));
     this.append(normalAction("restoreMultiDefault"));
     this.append(normalAction("enumerateLayouts"));
+
+    const layoutMap: Partial<Record<Identifier, ActionLayout>> = {
+      googlePrompt: { group: "提示", span: 1 },
+      textAdjustPrompt: { group: "提示", span: 1 },
+      translatorType: { group: "翻译器", span: 0.5 },
+      dictionaryType: { group: "翻译器", span: 0.5 },
+      fallbackTranslator: { group: "翻译器", span: 0.5 },
+      sourceLanguage: { group: "语言", span: 0.5, stack: true },
+      targetLanguage: { group: "语言", span: 0.5, stack: true },
+      localeSetting: { group: "语言", span: 0.5, stack: true },
+      pasteDelay: { group: "剪贴板", span: 0.5 },
+      listenClipboardMode: { group: "剪贴板", span: 0.5 },
+      dragCopyMode: { group: "剪贴板", span: 0.5 },
+      listenClipboard: { group: "剪贴板", span: 0.5 },
+      autoCopy: { group: "剪贴板", span: 0.5 },
+      autoPaste: { group: "剪贴板", span: 0.5 },
+      autoFormat: { group: "剪贴板", span: 0.5 },
+      dragCopy: { group: "剪贴板", span: 0.5 },
+      incrementalCopy: { group: "剪贴板", span: 0.5 },
+      colorMode: { group: "主题与颜色", span: 0.5 },
+      primaryColor: { group: "主题与颜色", span: 0.5 },
+      fontColor: { group: "主题与颜色", span: 0.5 },
+      backgroundColor: { group: "主题与颜色", span: 0.5 },
+      transparency: { group: "布局", span: 0.5 },
+      titlebarHeight: { group: "布局", span: 0.5 },
+      contentPadding: { group: "布局", span: 0.5 },
+      contentLineHeight: { group: "布局", span: 0.5 },
+      layoutType: { group: "布局", span: 0.5 },
+      penerate: { group: "布局", span: 0.5 },
+      contentFontFamily: { group: "字体", span: 1 },
+      interfaceFontFamily: { group: "字体", span: 1 },
+      hideDirect: { group: "窗口", span: 0.5 },
+      skipTaskbar: { group: "窗口", span: 0.5 },
+      stayTop: { group: "窗口", span: 0.5 },
+      drawer: { group: "窗口", span: 0.5 },
+      autoHide: { group: "窗口", span: 0.5 },
+      autoShow: { group: "窗口", span: 0.5 },
+      openAtLogin: { group: "窗口", span: 0.5 },
+      closeAsQuit: { group: "窗口", span: 0.5 },
+      enableOCR: { group: "OCR", span: 0.5 },
+      smartDict: { group: "词典与智能", span: 0.5 },
+      contrastDict: { group: "词典与智能", span: 0.5 },
+      focusSource: { group: "词典与智能", span: 0.5 },
+      smartTranslate: { group: "词典与智能", span: 0.5 },
+      enableNotify: { group: "提示", span: 0.5 },
+      neverShowTips: { group: "提示", span: 0.5 },
+      toastTip: { group: "提示", span: 0.5 },
+      autoCheckUpdate: { group: "更新与其他", span: 0.5 },
+      multiSource: { group: "高级", span: 0.5 },
+      enableDoubleCopyTranslate: { group: "高级", span: 0.5 },
+      doubleClickCopy: { group: "高级", span: 0.5 },
+      newConfigSnapshot: { group: "配置快照", span: 0.5 },
+      configSnapshot: { group: "配置快照", span: 0.5 },
+      delConfigSnapshot: { group: "配置快照", span: 0.5 },
+      translateInput: { group: "翻译", span: 0.5 },
+      translate: { group: "翻译", span: 0.5 },
+      settings: { group: "翻译", span: 0.5 },
+      copySource: { group: "复制", span: 0.5 },
+      copyResult: { group: "复制", span: 0.5 },
+      clear: { group: "复制", span: 0.5 },
+      editConfigFile: { group: "更新与其他", span: 0.5 },
+      showConfigFolder: { group: "更新与其他", span: 0.5 },
+      restoreDefault: { group: "更新与其他", span: 0.5 },
+    };
+
+    Object.entries(layoutMap).forEach(([id, layout]) => {
+      const action = this.actions.get(id as Identifier);
+      if (action) {
+        action.layout = { ...action.layout, ...layout };
+      }
+    });
   }
 
   getKeys(optionType: MenuActionType | Category): Array<Identifier> {
@@ -615,6 +687,13 @@ class ActionManager {
           "copySource",
           "newConfigSnapshot",
           "configSnapshot",
+        ];
+        break;
+      case "snapshotManage":
+        contain = [
+          "newConfigSnapshot",
+          "configSnapshot",
+          "delConfigSnapshot",
         ];
         break;
       case "diffContext":

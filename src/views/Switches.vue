@@ -1,27 +1,29 @@
 <template>
-  <div>
-    <v-expansion-panels>
-      <div v-for="(cate, index) in cates" :key="cate" style="width: 50%;">
-        <v-subheader style="text-align: left; padding: 0px;"
-          >{{ trans[cate] }}
-        </v-subheader>
-        <Action
-          v-for="actionId in actionKeys[index]"
-          :identifier="actionId"
-          :key="actionId"
-        ></Action>
+  <div class="switch-root">
+    <div class="switch-groups">
+      <div v-for="(cate, index) in cates" :key="cate" class="switch-group">
+        <div class="switch-group-title">{{ trans[cate] }}</div>
+        <div class="switch-grid">
+          <div
+            v-for="action in groupActions[index]"
+            :key="action.id"
+            :class="['switch-item', actionItemClass(action)]"
+          >
+            <Action :identifier="action.id"></Action>
+          </div>
+        </div>
       </div>
-    </v-expansion-panels>
-    <SimpleButton @click="restore">{{
-      trans["restoreMultiDefault"]
-    }}</SimpleButton>
+    </div>
+    <div class="switch-restore">
+      <SimpleButton @click="restore">{{ trans["restoreMultiDefault"] }}</SimpleButton>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop } from "vue-property-decorator";
 import KeyConfig from "@/components/KeyConfig.vue";
-import { Identifier, Category } from "../common/types";
+import { Identifier, Category, ActionView } from "../common/types";
 import Action from "../components/Action.vue";
 import SimpleButton from "@/components/SimpleButton.vue";
 import Base from "@/components/Base.vue";
@@ -38,6 +40,16 @@ export default class SwitchGroups extends Base {
   actionKeys: Array<Identifier[]> = this.cates.map((x) =>
     this.$controller.action.getKeys(x as Category)
   );
+  groupActions: Array<ActionView[]> = this.actionKeys.map((keys) =>
+    keys.map((id) => this.$controller.action.getAction(id))
+  );
+
+  actionItemClass(action: ActionView) {
+    if (action.layout?.span && action.layout.span >= 1) {
+      return "switch-item-full";
+    }
+    return "";
+  }
 
   restore() {
     for (const cate of this.cates) {
@@ -47,4 +59,42 @@ export default class SwitchGroups extends Base {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.switch-root {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.switch-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.switch-group {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+.switch-group-title {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.switch-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px 12px;
+}
+.switch-item-full {
+  grid-column: 1 / -1;
+}
+.switch-restore {
+  margin-top: 4px;
+}
+@media (max-width: 520px) {
+  .switch-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
