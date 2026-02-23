@@ -117,7 +117,7 @@ export const zh_cn = new Map<LocaleKey, string>([
   ["bing", "Bing词典"],
   [
     "translatorManagerTips",
-    "提示：\n1) 先在配置中填写密钥，未配置的翻译器无法启用。\n2) 批量启用只会启用已完成配置的翻译器。\n3) 缓存会预查询并复用结果以加速切换，但会占用更多资源。",
+    "提示：\n1) 先在配置中填写密钥，未配置的翻译器无法启用。\n2) 缓存会预查询并复用结果以加速切换，但会占用更多资源。",
   ],
   ["selectTranslators", "选择要启用的翻译器"],
   ["selectCacheEngines", "选择用于缓存的引擎"],
