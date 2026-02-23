@@ -87,6 +87,7 @@
 
 **资源定义与生成**
 - 源码语言包在 `locales.ts` 中维护为 `Map`：[locales.ts](src/common/locales.ts#L1-L369)
+- 使用技巧轮播内容来自 `locales.ts` 的 `<tip>` 与提示类键，并由 [Tips.vue](src/components/Tips.vue#L1-L71) 组装
 - `prebuild.ts` 将语言包生成 `dist_locales`，并补齐缺失键：[prebuild.ts](src/prebuild.ts#L1-L44)
 - 构建脚本在 `prebuild` 中执行：`tsc` + `node`：[package.json](package.json#L15-L22)
 

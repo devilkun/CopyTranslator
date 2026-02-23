@@ -51,6 +51,13 @@ export default class Tips extends Base {
   mounted() {
     this.tips = [
       this.trans["<tooltip>welcome"],
+      this.trans["<tip>v12Stepfun"],
+      this.trans["<tip>v12AiProviders"],
+      this.trans["<tip>v12TranslatorManager"],
+      this.trans["<tip>v12ContentStyle"],
+      this.trans["<tip>v12Ocr"],
+      this.trans["<tip>v12Proxy"],
+      this.trans["<tip>v12Portable"],
       this.trans["textAdjustPrompt"],
       this.trans["googlePrompt"],
       this.trans["dragCopyTip"],

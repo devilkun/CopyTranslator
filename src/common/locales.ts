@@ -315,6 +315,22 @@ export const zh_cn = new Map<LocaleKey, string>([
     "<tip>engineCache",
     "化合物翻译引擎目前默认是没有加速缓存的，但是你可以自行设置。",
   ],
+  [
+    "<tip>v12Stepfun",
+    "阶跃星辰 step-3.5-flash 限时免费，在翻译引擎列表中直接选择即可使用。",
+  ],
+  [
+    "<tip>v12AiProviders",
+    "可在设置->API 设置添加 AI 翻译供应商（OpenAI/DeepSeek/OpenRouter/NVIDIA NIM 等）。",
+  ],
+  ["<tip>v12TranslatorManager", "翻译器管理已改为表格布局，支持分组与拖拽排序。"],
+  ["<tip>v12ContentStyle", "设置->外观可调整内容内边距与行高。"],
+  ["<tip>v12Ocr", "设置->OCR 提供 OCR 开关与配置（百度 OCR/PP-OCR）。"],
+  ["<tip>v12Proxy", "设置->网络代理支持 HTTP/SOCKS5，用于访问受限服务。"],
+  [
+    "<tip>v12Portable",
+    "可执行文件旁的 copytranslator 文件夹可启用便携模式。",
+  ],
   ["actionSortPrompt", "你可以通过拖拽来对这些按钮进行排序"],
   ["listenClipboardMode", "监听剪贴板模式"],
   ["listenClipboardGlobal", "全局监听剪贴板"],
@@ -791,6 +807,31 @@ export const en = new Map<LocaleKey, string>([
   [
     "<tip>engineCache",
     "The compound translation engine currently does not have accelerated caching by default, but you can set it yourself.",
+  ],
+  [
+    "<tip>v12Stepfun",
+    "Stepfun step-3.5-flash is free for a limited time and can be selected directly in the translator list.",
+  ],
+  [
+    "<tip>v12AiProviders",
+    "Add AI providers in Settings -> API (OpenAI/DeepSeek/OpenRouter/NVIDIA NIM, etc.).",
+  ],
+  [
+    "<tip>v12TranslatorManager",
+    "Translator management uses a table layout and supports grouping with drag-and-drop sorting.",
+  ],
+  [
+    "<tip>v12ContentStyle",
+    "Adjust content padding and line height in Settings -> Appearance.",
+  ],
+  [
+    "<tip>v12Ocr",
+    "Settings -> OCR provides an OCR toggle and configuration (Baidu OCR/PP-OCR).",
+  ],
+  ["<tip>v12Proxy", "Settings -> Network Proxy supports HTTP/SOCKS5."],
+  [
+    "<tip>v12Portable",
+    "Use portable mode by placing a copytranslator folder next to the executable.",
   ],
   ["actionSortPrompt", "You can sort these buttons by dragging and dropping"],
   ["listenClipboardGlobal", "Listen Clipboard Global"],
